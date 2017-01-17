@@ -136,11 +136,22 @@
     app.post('/shutdown', function (req, res) {
         exec('shutdown -s -f -t 15', {encoding: 'gbk'}, function (err, stdout, stderr) {
             if (!err) {
-                res.send(iconv.decode(stdout, "GBK"));
+                res.send(iconv.decode(stdout, 'GBK'));
             } else {
-                res.send(iconv.decode(stderr, "GBK"));
+                res.send(iconv.decode(stderr, 'GBK'));
             }
         });
+    });
+
+    //接受任意命令并返回结果
+    app.post('/runCommand', function (req, res) {
+        exec(req.body.command, {encoding: 'gbk'}, function (err, stdout, stderr) {
+            if (!err) {
+                res.send(iconv.decode(stdout, 'GBK'));
+            } else {
+                res.send(iconv.decode(stderr, 'GBK'));
+            }
+        })
     });
 
     var server = app.listen(argv.port, argv.public ? undefined : '', function () {
