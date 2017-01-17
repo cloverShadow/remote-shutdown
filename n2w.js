@@ -1,5 +1,5 @@
 //全局父节点
-var gis = {
+var n2 = {
     version: 1.0
 };
 /**
@@ -43,7 +43,7 @@ namespace = function (ns) {
  * @param child 子类名称空间
  * @param parent 父类名称空间
  */
-gis.inherits = function (child, parent) {
+n2.inherits = function (child, parent) {
     function tmp() {
     }
 
@@ -58,13 +58,13 @@ gis.inherits = function (child, parent) {
  * @param node 调用类的函数构造器
  * @param {Array|string} ns = Array 被调用类的名称空间
  */
-gis.using = function (node, ns) {
+n2.using = function (node, ns) {
     node.prototype.using = {};
     for (var i = 0; i < ns.length; i++) {
-        if (!gis.defined(gis.config[ns[i]])) {
+        if (!n2.defined(n2.config[ns[i]])) {
             console.log(ns[i] + "加载不正确！");
-        } else if (!gis.defined(eval(ns[i]))) {
-            node.prototype.using[ns[i]] = gis.loadJS(gis.config[ns[i]]["url"]);
+        } else if (!n2.defined(eval(ns[i]))) {
+            node.prototype.using[ns[i]] = n2.loadJS(n2.config[ns[i]]["url"]);
         } else {
             node.prototype.using[ns[i]] = eval(ns[i]);
         }
@@ -77,8 +77,8 @@ gis.using = function (node, ns) {
  *
  * @return {object|*} 该类在全局的实例的唯一引用
  */
-gis.getInstance = function (ns, guide) {
-    var when = new gis.when();
+n2.getInstance = function (ns, guide) {
+    var when = new n2.when();
     var deferred = when.defer();
     if (when.isPromise(guide.using[ns])) {
         guide.using[ns].then(function () {
@@ -98,7 +98,7 @@ gis.getInstance = function (ns, guide) {
  * @returns {prototype}
  *
  * @example
- *      gis.definePrototype(gis.prototype, {
+ *      n2.definePrototype(n2.prototype, {
  *          version : {
  *              get : function () {
  *                  return this.version;
@@ -109,11 +109,11 @@ gis.getInstance = function (ns, guide) {
  *          }
  *      });
  *      取值：
- *          gis.prototype.version.get();
+ *          n2.prototype.version.get();
  *      赋值：
- *          gis.prototype.version.set(value);
+ *          n2.prototype.version.set(value);
  */
-gis.definePrototype = function (prototype, obj) {
+n2.definePrototype = function (prototype, obj) {
     var definePropertyWorks = (function () {
         try {
             return 'x' in Object.defineProperty({}, 'x', {});
@@ -121,7 +121,7 @@ gis.definePrototype = function (prototype, obj) {
             return false;
         }
     })();
-    if (!definePropertyWorks || !gis.defined(this)) {
+    if (!definePropertyWorks || !n2.defined(this)) {
         return prototype;
     } else {
         Object.defineProperties(prototype, obj);
@@ -132,10 +132,10 @@ gis.definePrototype = function (prototype, obj) {
  * @param value 需要判断的变量的传入值
  * @returns {boolean} 判断变量存在或定义的结果
  */
-gis.defined = function (value) {
+n2.defined = function (value) {
     return value !== undefined && value !== null;
 };
-gis.base = function (a, b) {
+n2.base = function (a, b) {
     var c = arguments.callee.caller;
     if (c.superClass_) {
         for (var d = new Array(arguments.length - 1), e = 1; e < arguments.length; e++)d[e - 1] = arguments[e];
@@ -144,8 +144,8 @@ gis.base = function (a, b) {
     for (var f = new Array(arguments.length - 2), e = 2; e < arguments.length; e++)f[e - 2] = arguments[e];
     for (var g = !1, h = a.constructor; h; h = h.superClass_ && h.superClass_.constructor)if (h.prototype[b] === c) g = !0; else if (g)return h.prototype[b].apply(a, f)
 };
-gis.loadJS = function (src) {
-    var when = new gis.when();//此处应调用gis.when的全局父节点下的单例，但现在没有实现单例模式，所以暂时先私有化处理
+n2.loadJS = function (src) {
+    var when = new n2.when();//此处应调用n2.when的全局父节点下的单例，但现在没有实现单例模式，所以暂时先私有化处理
     var deferred = when.defer();
     //后期封装dom时需要修改
     var ref = document.getElementsByTagName("script")[0];
@@ -158,12 +158,12 @@ gis.loadJS = function (src) {
     };
     return deferred.promise;
 };
-namespace("gis.promise");
-namespace("gis.when");
-gis.promise = function (then) {
+namespace("n2.promise");
+namespace("n2.when");
+n2.promise = function (then) {
     this.then = then;
 };
-gis.promise.prototype = {
+n2.promise.prototype = {
     /**
      * 当一个Promise执行成功或者失败的时候注册一个用以处理的回调事件并
      * 通过.then(onFulfilledOrRejected, onFulfilledOrRejected, onProgress)快速的控制进度
@@ -209,7 +209,7 @@ gis.promise.prototype = {
         });
     }
 };
-gis.when = function () {
+n2.when = function () {
     var reduceArray, slice, undef;
 
     this._defer = when.defer = defer;
@@ -249,7 +249,7 @@ gis.when = function () {
     function resolve(promiseOrValue) {
         var promise, deferred;
 
-        if (promiseOrValue instanceof gis.promise) {
+        if (promiseOrValue instanceof n2.promise) {
             promise = promiseOrValue;
 
         } else {
@@ -293,7 +293,7 @@ gis.when = function () {
      * @returns {Promise}
      */
     function fulfilled(value) {
-        var p = new gis.promise(function (onFulfilled) {
+        var p = new n2.promise(function (onFulfilled) {
             // TODO: Promises/A+ check typeof onFulfilled
             try {
                 return resolve(onFulfilled ? onFulfilled(value) : value);
@@ -313,7 +313,7 @@ gis.when = function () {
      * @returns {Promise} rejected promise
      */
     function rejected(reason) {
-        var p = new gis.promise(function (_, onRejected) {
+        var p = new n2.promise(function (_, onRejected) {
             // TODO: Promises/A+ check typeof onRejected
             try {
                 return onRejected ? resolve(onRejected(reason)) : rejected(reason);
@@ -336,7 +336,7 @@ gis.when = function () {
         /**
          * @type {Promise}
          */
-        promise = new gis.promise(then);
+        promise = new n2.promise(then);
 
         /**
          * @class Deferred
@@ -738,7 +738,7 @@ gis.when = function () {
         return x;
     }
 };
-gis.definePrototype(gis.when.prototype, {
+n2.definePrototype(n2.when.prototype, {
     defer: {
         get: function () {
             return this._defer;
