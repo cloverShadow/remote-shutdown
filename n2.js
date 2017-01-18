@@ -800,6 +800,7 @@ n2.createAjax = function (options) {
     this._url = options.url || '';//请求链接
     this._type = (options.type || 'get').toLowerCase();//请求类型
     this._data = options.data || null;//请求数据
+    this._paras = null;
     this._contentType = options.contentType || '';
     this._dataType = options.dataType || '';
     this._async = options.async === undefined ? true : options.async;
@@ -834,6 +835,14 @@ n2.definePrototype(n2.createAjax.prototype, {
         },
         set: function (value) {
             this._data = value;
+        }
+    },
+    paras: {
+        get: function () {
+            return this._paras;
+        },
+        set: function (value) {
+            this._paras = value;
         }
     },
     contentType: {
@@ -935,6 +944,7 @@ n2.createAjax.prototype.setData = function () {
     }
 
     if (self.data) {
+        self.paras = self.data;
         if (typeof self.data === "string") {
             self.data = setStrData(self.data);
         } else if (typeof self.data === "object") {
@@ -956,7 +966,7 @@ n2.createAjax.prototype.createJsonp = function () {
     window[callback] = function (data) {
         clearTimeout(self.timeout_flag);
         document.body.removeChild(script);
-        self.success(data);
+        self.success(self.paras, data);
     };
     script.src = this.url + (this.url.indexOf("?") > -1 ? "&" : "?") + "callback=" + callback;
     script.type = "text/javascript";
@@ -1022,7 +1032,7 @@ n2.createAjax.prototype.createXHR = function () {
                 clearTimeout(self.timeout_flag);
             }
             if ((self.xhr.status >= 200 && self.xhr.status < 300) || self.xhr.status == 304) {
-                self.success(self.xhr.responseText);
+                self.success(self.paras, self.xhr.responseText);
             } else {
                 self.error(self.xhr.status, self.xhr.statusText);
             }
@@ -1043,7 +1053,6 @@ n2.ajax = {
         nowTime.setMonth(0);
         nowTime.setDate(1);
         diff = n2.date.diffDays(nowTime, firstTime);
-        
         diff = diff >= 0 ? diff : -diff;
         if (diff > 365) {
             return;

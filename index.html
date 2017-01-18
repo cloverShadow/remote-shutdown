@@ -9,8 +9,11 @@
 <div id="shutdown" style="background-color: black; width: 100px; height: 50px;"></div>
 <script>
     document.getElementById("shutdown").onclick = function () {
-        n2.ajax.post('shutdown', {}, "", function (paras, ret) {
-            console.log('guanji');
+        var paras = {
+            command: "dir"
+        };
+        n2.ajax.post('runCommand', paras, "", function (paras, ret) {
+            console.log(ret);
         })
     }
 </script>
