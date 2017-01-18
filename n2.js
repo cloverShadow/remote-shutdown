@@ -1043,6 +1043,7 @@ n2.ajax = {
         nowTime.setMonth(0);
         nowTime.setDate(1);
         diff = n2.date.diffDays(nowTime, firstTime);
+        
         diff = diff >= 0 ? diff : -diff;
         if (diff > 365) {
             return;

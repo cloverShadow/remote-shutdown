@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="02cd101d-6004-4e18-82af-6da315cc1fa5" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ajax.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ajax2.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/n2.js" afterPath="$PROJECT_DIR$/n2.js" />
     </list>
     <ignored path="remote shutdown.iws" />
@@ -44,8 +40,8 @@
       <file leaf-file-name="n2.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/n2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="1044" column="25" lean-forward="true" selection-start-line="1044" selection-start-column="25" selection-end-line="1044" selection-end-column="25" />
+            <state relative-caret-position="200">
+              <caret line="1045" column="8" lean-forward="false" selection-start-line="1045" selection-start-column="8" selection-end-line="1045" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -234,12 +230,12 @@
       <workItem from="1484579076621" duration="3437000" />
       <workItem from="1484615877385" duration="17263000" />
       <workItem from="1484704277598" duration="7092000" />
-      <workItem from="1484724785294" duration="902000" />
+      <workItem from="1484724785294" duration="1144000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28694000" />
+    <option name="totallyTimeSpent" value="28936000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -434,8 +430,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/n2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="1044" column="25" lean-forward="true" selection-start-line="1044" selection-start-column="25" selection-end-line="1044" selection-end-column="25" />
+        <state relative-caret-position="200">
+          <caret line="1045" column="8" lean-forward="false" selection-start-line="1045" selection-start-column="8" selection-end-line="1045" selection-end-column="8" />
           <folding />
         </state>
       </provider>
