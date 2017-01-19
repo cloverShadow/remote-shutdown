@@ -4,17 +4,54 @@
     <title>remote</title>
     <meta charset="UTF-8">
     <script src="n2.js"></script>
+    <style>
+        .form {
+            margin: 0 auto;
+            display: block;
+            width: 90%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #555555;
+            vertical-align: middle;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+
+        .form:focus, .form:hover {
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
+        }
+
+        .form-display {
+            height: 500px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<div id="shutdown" style="background-color: black; width: 100px; height: 50px;"></div>
+<input id="command" class="form"/>
+<p id="result" class="form-display form"></p>
 <script>
-    document.getElementById("shutdown").onclick = function () {
-        var paras = {
-            command: "dir"
-        };
-        n2.ajax.post('runCommand', paras, "", function (paras, ret) {
-            console.log(ret);
-        })
+    document.onkeydown = function () {
+        var key = window.event.keyCode;
+        if (key == 13) {
+            var command = document.getElementById('command').value;
+            var paras = {
+                command: command
+            };
+            n2.ajax.post('runCommand', paras, '', function (paras, ret) {
+                document.getElementById('result').innerText = ret;
+            })
+        }
     }
 </script>
 </body>

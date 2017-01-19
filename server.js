@@ -147,7 +147,17 @@
     app.post('/runCommand', function (req, res) {
         exec(req.body.command, {encoding: 'gbk'}, function (err, stdout, stderr) {
             if (!err) {
-                res.send(iconv.decode(stdout, 'GBK'));
+                if (iconv.decode(stdout, 'GBK') === '') {
+                    exec('dir', {encoding: 'gbk'}, function (err, stdout, stderr) {
+                        if (!err) {
+                            res.send(iconv.decode(stdout, 'GBK'));
+                        } else {
+                            res.send(iconv.decode(stderr, 'GBK'));
+                        }
+                    })
+                } else {
+                    res.send(iconv.decode(stdout, 'GBK'));
+                }
             } else {
                 res.send(iconv.decode(stderr, 'GBK'));
             }
